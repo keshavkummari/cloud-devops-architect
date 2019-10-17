@@ -6,3 +6,31 @@ Agenda :
 3. Github 
 4. OS - Linux SystemAdmin 
 
+download os Linux Distribution:
+
+Centos:
+https://www.centos.org/download/
+
+ubuntu:
+https://ubuntu.com/download/desktop
+
+Virtualization Software :
+https://www.virtualbox.org/wiki/Downloads
+
+VCS / SCM :
+https://git-scm.com/
+
+CMDER:
+https://cmder.net/
+
+AWS :
+https://aws.amazon.com/free 
+
+Azure : 
+https://portal.azure.com
+
+Github:
+https://github.com 
+
+Trello :
+https://trello.com 
