@@ -4,7 +4,7 @@ Agenda :
 1. Class Notes & Video
 2. Git
 3. Github 
-4. OS - Linux SystemAdmin 
+4. OS - Linux - SystemAdmin 
 
 download os Linux Distribution:
 

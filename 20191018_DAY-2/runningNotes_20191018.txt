@@ -1,0 +1,7 @@
+Agenda :
+
+1. Configure VM 
+2. Connect Linux Machine using Putty/Gitbash/Cmder 
+3. Basic of Linux 
+4. User and Group Mgmt 
+
