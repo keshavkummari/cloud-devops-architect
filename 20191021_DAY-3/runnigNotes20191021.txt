@@ -1,0 +1,5 @@
+Agenda :
+
+1. Basic of Linux 
+2. User and Group Mgmt 
+3. Permissions

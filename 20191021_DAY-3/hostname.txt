@@ -1,0 +1,200 @@
+[ec2-user@dev ~]$ uname -a
+Linux dev.ckk.cloud 3.10.0-327.el7.x86_64 #1 SMP Thu Nov 19 22:10:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ cat /etc/issue
+\S
+Kernel \r on an \m
+
+[ec2-user@dev ~]$ # sudo hostnamectl set-hostname "dev.ckk.cloud"
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.6  netmask 255.255.255.0  broadcast 192.168.0.255
+        inet6 fe80::a00:27ff:fe76:9d83  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:76:9d:83  txqueuelen 1000  (Ethernet)
+        RX packets 790638  bytes 1108379634 (1.0 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 297959  bytes 20218248 (19.2 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 4  bytes 340 (340.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4  bytes 340 (340.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 00:00:00:00:00:00  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[ec2-user@dev ~]$ hostname
+dev.ckk.cloud
+[ec2-user@dev ~]$ cat /etc/issue
+\S
+Kernel \r on an \m
+
+[ec2-user@dev ~]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ hostnamectl set-hostname "jenkins.ckk.cloud"
+==== AUTHENTICATING FOR org.freedesktop.hostname1.set-static-hostname ===
+Authentication is required to set the statically configured local host name, as well as the pretty host name.
+Authenticating as: ec2-user
+Password: 
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ sudo hostnamectl set-hostname "jenkins.ckk.cloud"
+[sudo] password for ec2-user: 
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ hostname
+jenkins.ckk.cloud
+[ec2-user@dev ~]$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.6  netmask 255.255.255.0  broadcast 192.168.0.255
+        inet6 fe80::a00:27ff:fe76:9d83  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:76:9d:83  txqueuelen 1000  (Ethernet)
+        RX packets 790976  bytes 1108408342 (1.0 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 298136  bytes 20238890 (19.3 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 4  bytes 340 (340.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4  bytes 340 (340.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 00:00:00:00:00:00  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[ec2-user@dev ~]$ # 192.168.0.6 jenkins.ckk.cloud 
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ # vi and vim 
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ echo 192.168.0.6 jenkins.ckk.cloud >> /etc/hosts
+-bash: /etc/hosts: Permission denied
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ sudo su
+[root@jenkins ec2-user]# 
+[root@jenkins ec2-user]# echo 192.168.0.6 jenkins.ckk.cloud >> /etc/hosts
+[root@jenkins ec2-user]# 
+[root@jenkins ec2-user]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.0.6 jenkins.ckk.cloud
+[root@jenkins ec2-user]# exit
+exit
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ vi /etc/hosts
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ sudo /etc/hosts
+sudo: /etc/hosts: command not found
+[ec2-user@dev ~]$ sudo su
+[root@jenkins ec2-user]# 
+[root@jenkins ec2-user]# exit
+exit
+[ec2-user@dev ~]$ sudo vi /etc/hosts
+[ec2-user@dev ~]$ 
+[ec2-user@dev ~]$ 
+
+
+
+
+vi devops.txt 
+
+3 Types 
+
+    1. Insert Mode :
+
+
+    2. Execute Mode or Extended Mode 
+
+    3. Command Mode 
+
+[ec2-user@dev ~]$ history
+    1  hostname
+    2  cat /etc/issue
+    3  init 0
+    4  sudo su
+    5  ifconfig
+    6  uname -a
+    7  cat /etc/issue
+    8  # sudo hostnamectl set-hostname "dev.ckk.cloud"
+    9  ifconfig
+   10  hostname
+   11  cat /etc/issue
+   12  cat /etc/hosts
+   13  hostnamectl set-hostname "jenkins.ckk.cloud"
+   14  sudo hostnamectl set-hostname "jenkins.ckk.cloud"
+   15  hostname
+   16  ifconfig
+   17  # 192.168.0.6 jenkins.ckk.cloud 
+   18  cat /etc/hosts
+   19  # vi and vim 
+   20  echo 192.168.0.6 jenkins.ckk.cloud >> /etc/hosts
+   21  sudo su
+   22  vi /etc/hosts
+   23  sudo /etc/hosts
+   24  sudo su
+   25  sudo vi /etc/hosts
+   26  pwd
+   27  ls 
+   28  ls -l
+   29  ls -lr
+   30  ls -lrt
+   31  ls -lrta
+   32  pwd
+   33  ls
+   34  ls -l
+   35  ls -lrt
+   36  ls -lrta
+   37  pwd
+   38  ls -lrta
+   39  # echo 
+   40  # touch
+   41  # cat 
+   42  # vi 
+   43  pwd
+   44  ls -lrt
+   45  vi devops.txt
+   46  pwd
+   47  ls -lrt
+   48  cat devops.txt 
+   49  vi devops.txt
+   50  cat devops.txt 
+   51  vi devops.txt
+   52  pwd
+   53  ls -lrt
+   54  cat aws.txt 
+   55  cat devops.txt 
+   56  vi devops.txt
+   57  cat devops.txt 
+   58  vi devops.txt 
+   59  pwd
+   60  ls -lrt
+   61  du -sh devops.txt 
+   62  wc devops.txt 
+   63  vi devops.txt 
+   64  pwd
+   65  ls -lrt
+   66  cat azure.txt 
+   67  history
