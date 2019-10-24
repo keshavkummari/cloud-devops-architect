@@ -1,0 +1,5 @@
+Agenda :
+
+1. Permissions 
+2. Advanced Linux Commands
+
