@@ -1,0 +1,70 @@
+Agenda : 
+
+1. Package Management 
+    1. tree   on Ubuntu & Rehdat
+    2. elinks on Ubuntu & Rehdat
+WebServer:
+    3. Apache2 on Ubuntu & httpd Rehdat
+        1. rpmquery httpd
+        2. systemctl status httpd.service
+           service httpd status 
+           /etc/init.d/httpd status 
+        3. Package Path : /usr/share/httpd
+        4. Configuration Files Path : /etc/httpd/ 
+        5. User and Group : apache
+        6. Log Path : /var/log/httpd/
+        7. DocumentRoot "/var/www/html"   (/etc/httpd/conf/httpd.conf)
+        8. Ports : 80
+        
+
+1. Package
+2. Daemons
+3. Log Path 
+4. Configuration Files
+5. Enable Port
+
+2. Controlling Services and Daemons
+
+[root@ip-172-31-42-19 html]# history
+    1  cd
+    2  grep http /etc/passwd /etc/shadow /etc/group /etc/gshadow
+    3  ls -lrt /usr/share/httpd
+    4  ls -lrt /etc/httpd/
+    5  grep http /etc/passwd /etc/shadow /etc/group /etc/gshadow
+    6  ls -lrt /var/log/httpd/
+    7  ls -lrt /etc/httpd/conf/httpd.conf 
+    8  vi /etc/httpd/conf/httpd.conf
+    9  systemctl status httpd.service
+   10  /etc/init.d/
+   11  systemctl start httpd.service
+   12  systemctl status httpd.service
+   13  systemctl enable httpd.service
+   14  systemctl status httpd.service
+   15  curl localhost
+   16  elinks localhost
+   17  elinks localhost
+   18  yum install elinks
+   19  yum install elinks* 
+   20  ls -lrt /var/www/html
+   21  cd /var/www/html/
+   22  ls -lrt
+   23  vi index.html
+   24  cat index.html 
+   25  pwd
+   26  ls -lrt
+   27  yum install mariadb
+   28  rpmquery mariadb
+   29  systemctl status mariadb.service
+   30  yum install mariadb*
+   31  rpmquery mariadb
+   32  systemctl status mariadb.service
+   33  mysql_secure_installation 
+   34  systemctl restart mariadb.service
+   35  systemctl status mariadb.service
+   36  mysql_secure_installation 
+   37  systemctl status mariadb.service
+   38  systemctl restart mariadb.service
+   39  systemctl status mariadb.service
+   40  mysql -u root
+   41  mysql -u root -p
+   
