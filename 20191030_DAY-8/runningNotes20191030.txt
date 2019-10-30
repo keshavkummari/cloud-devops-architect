@@ -1,0 +1,330 @@
+Agenda :
+
+1. Controlling Services & Daemons 
+2. Analyzing and Storing Logs
+
+
+Unit-8  Controlling Services & Daemons:
+
+Systemd�is an init system and system manager that is widely becoming the new standard for Linux machines. 
+While there are considerable opinions about whether�systemd�is an improvement over the traditional�SysV�init systems it is replacing, the majority of distributions plan to adopt it or have already done so.
+systemd is a system and service manager for Linux operating systems.
+When run as first process on boot (as PID 1), it acts as init system that brings up and maintains user space services.
+
+
+# The �systemctl status name� command replaces the �service name status� command used in previous versions of RHEL.
+
+Syntax of <7 versions:
+# service service_name action
+or
+# /etc/init.d/<service_name> action
+
+# service mysqld start/stop/restart/status
+----------------------------------------------------------
+In 7:
+# systemctl action service_name.service
+
+# systemctl status/stop/start/restart mariadb.service
+
+**********************************************************
+# Query the state of all units to verify a system startup:
+[root@rhel ~]# systemctl 
+
+# To check all service units:
+[root@rhel ~]# systemctl --type=service
+
+# To check specific service status:
+ [root@rhel ~]# systemctl status rhnsd.service -l
+
+# Enable or Active the unit at boot time:
+[root@rhel ~]# systemctl is-active sshd
+active
+[root@rhel ~]# systemctl is-enabled sshd
+enabled
+**********************************************************
+
+# To Disable or Enable a unit at Boot level:
+# systemctl disable sshd.service
+rm '/etc/systemd/system/multi-user.target.wants/sshd.service�
+
+# systemctl enable sshd.service
+ln -s '/usr/lib/systemd/system/sshd.service' '/etc/systemd/system/multi-user.target.wants/sshd.service�
+
+# To show all installed unit files use 'systemctl list-unit-files�
+# systemctl list-unit-files  
+Or 
+# systemctl list-unit-files --type=service
+
+# systemctl list-unit-files | grep enabled
+# systemctl list-unit-files | grep disabled
+# systemctl list-unit-files | grep static
+
+
+**********************************************************
+# systemctl list-units --type=service
+# systemctl list-units --type=service | grep 'running�  (exited, failed)
+
+# To view only failed services:
+# systemctl --failed --type=service
+
+List running services:
+# systemctl -t service --state=running
+# systemctl -t service --state=stopped
+# systemctl -t service --state=failed
+
+List all services:
+systemctl -at service�
+ls /etc/systemd/system/*.service�
+ls /usr/lib/systemd/system/*.service
+
+**********************************************************
+List all services : (RHEL-7)
+# systemctl -at service�
+# ls /etc/systemd/system/*.service�
+# ls /usr/lib/systemd/system/*.service
+
+RHEL-6:
+# chkconfig --list�
+# ls /etc/init.d/
+
+Start/stop service: (RHEL-7)
+# systemctl start�name.service�
+# systemctl stop�name.service
+
+RHEL-6:
+# service�name�start�
+# service�name�stop
+**********************************************************
+List running services:
+
+RHEL-6:
+# service --status-all
+
+# service mysqld status
+or
+# /etc/init.d/mysqld status
+
+RHEL-7:
+# systemctl -t service --state=active
+Enable/disable service:
+
+RHEL-6:
+# chkconfig�name�on�
+# chkconfig�name�off
+
+RHEL-7:
+# systemctl enable�name.service�
+# systemctl disable�name.service
+
+**********************************************************
+View service status
+RHEL-6:
+# service�name�status
+RHEL-7:
+# systemctl status�name.service
+Check if service is enabled
+RHEL-6:
+# chkconfig�name�--list
+RHEL-7:
+# systemctl is-enabled�name
+
+**********************************************************
+Create new service file or modify configuration
+
+RHEL-6:
+# chkconfig �add (# chkconfig --add bluetooth)
+
+RHEL-7:
+# systemctl daemon-reload�
+# /etc/systemd/system/*.service
+
+**********************************************************
+RHEL-6:
+# runlevel� or 	# who �r
+
+RHEL-7:
+# systemctl get-default� or  	# who �r
+
+Change run level/target
+RHEL-6:
+# /etc/inittab�init�run_level
+
+**********************************************************
+RHEL-7:
+# systemctl isolate�name.target
+# systemctl set-default
+# systemctl list-units -t target
+# systemctl enable graphical.target �force
+
+**********************************************************
+RHEL-6:
+# /etc/rsyslog.conf
+RHEL-7:
+# /etc/rsyslog.conf�
+
+# systemctl status systemd-journald.service
+
+View logs
+RHEL-6:
+# /var/log
+
+RHEL-7:
+# /var/log�
+# journalctl
+
+**********************************************************
+		By - Keshav Kummari
+**********************************************************
+
+2. Analyzing and Storing Logs
+
+10. Analyzing and Storing Logs:
+*******************************
+
+System Logging:
+
+Processes and the operating system kernel need to be able to record a log of events that happen.
+
+These logs can be useful for auditing the system and troubleshooting problems.
+
+By convention, the �/var/log� directory is where these logs are persistently stored.
+
+A standard logging system based on the systlog protocol is built into RHEL.
+
+Many programs use this system to record events and organize them into log files.
+
+In RHEL syslog messages are handled by two services, 1. systemd-journald & 2. rsyslog.
+
+The system-journald daemon provides an improved log management service that collects messages from the kernel, the early of the boot process, standard output and error of daemons as they start up and run and syslog.
+
+
+It writes these messages to a structured journal of events that, by default, does not persist between reboots.
+
+This allows syslog messages and events which are missed by syslog to be collected in one central database.
+
+The syslog messages are also forwarded by systemd-journald to rsyslog for further processing.
+
+The �/var/log� directory holds various system and service-specific log files maintained by rsyslog.
+
+*********************************************************
+Analyze syslogs:
+
+
+To read logs:
+# cat /var/log/secure
+
+To read Continues logs:
+# tailf /var/log/messages
+
+Send a syslog message with Logger:
+# logger -p local7.notice "Log entry created on serverX�
+
+Now, cross check in �/var/log/secure� & �/var/log/messages�:
+# tail /var/log/secure
+
+# tail /var/log/messages
+
+# echo "*.debug /var/log/messages-debug" > /etc/rsyslog.d/debug.conf
+
+# ls -l /etc/rsyslog.d/debug.conf
+-rw-r--r--. 1 root root 32 Jun 19 10:26 /etc/rsyslog.d/debug.conf
+
+# cat /etc/rsyslog.d/debug.conf
+*.debug /var/log/messages-debug
+
+# systemctl restart rsyslog
+# tailf /var/log/messages-debug
+
+Open other terminal and use logger:
+# logger -p user.debug "Debug message Test"
+
+*********************************************************
+Finding events with journalctl
+The systemd journal is stored in �/run/log� by default and it�s contents are cleared after a reboot.
+
+The �journalctl� command shows the full system journal.
+# journalctl  (All logs)
+# journalctl -n (Default last 10 lines)
+# journalctl -n 5 (Last 5 logs)
+
+Using priority:
+
+Priority levels are
+1. debug, 2. info, 3. notice, 4. warning, 5. err, 6. crit, 7. alert & 8. emerg�.
+
+# journalctl -p err
+
+*********************************************************
+# journalctl -f (Last 10 lines and continues to output to new logs)
+# journalctl --since today
+# journalctl --since yesterday
+# journalctl --since tomorrow
+
+# Syntax : yyyy-mm-dd hh:mm:ss
+# journalctl --since "2016-06-18 20:30:00" --until "2016-06-19 10:57:10"
+
+To check the full-structured entry items with all fields:
+# journalctl -o verbose
+
+To check logs of a specific service:
+# journalctl _SYSTEMD_UNIT=systemd-journald.service
+
+
+To check with the Process id:
+# journalctl _PID=1
+
+To check with the user id:
+# journalctl _UID=81
+
+To check with the priority:
+# journalctl -p warning
+
+To check from a specific time:
+# journalctl --since 9:05:00 --until 9:10:00
+
+To check with a specific service:
+# journalctl --since 9:00:00 _SYSTEMD_UNIT="sshd.service"
+
+To check boot logs:
+# journalctl -b
+*********************************************************
+
+Store the system journal Permanently:
+
+By default, the systemd journal is kept in �/run/log/journal�, which means it is cleared when the system reboots.
+
+The journal is a new mechanism in RHEL-7 and for most installations, a detailed journal that starts with the last boot is sufficient.
+
+If we save the journal logs in �/var/log/journal� so that we can refer historic data.
+But, journal has a built-in log rotation mechanism that will trigger monthly.
+
+In addition, by default, the journal will not be allowed to get larger than 10% of the
+file system it is on, or leave less than 15% of the file system free.
+These values can be turned in �/etc/systemd/journald.conf�
+and the current limits on the size of the journal are logged when the system-journald process starts.
+
+# mkdir -p /var/log/journal
+# chmod 2755 /var/log/journal/
+# chown root:systemd-journal /var/log/journal
+# kill -USER1 systemd-journald
+
+*********************************************************
+
+Maintaining Accurate Time:
+
+Correct synchronized time is very important for log file analysis across multiple systems.
+
+The NTP(Network Time Protocol) is a standard way for machines to provide and obtain correct time information on the internet.
+
+# timedatectl
+# timedatectl list-timezones
+# timedatectl set-timezone America/Phoenix
+# timedatectl set-time 9:00:00 ( �YYYY-MM-DD hh:,=mm:ss)
+# timedatectl set-ntp true
+Config file: /etc/chrony.conf
+# systemctl restart chronyd
+# chronyc sources -v
+
+*********************************************************
+		By - Keshav Kummari
+*********************************************************
