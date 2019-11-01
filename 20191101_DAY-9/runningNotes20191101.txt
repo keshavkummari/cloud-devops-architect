@@ -1,0 +1,163 @@
+Agenda:
+
+1. Analyzing and Storing logs 
+2. NTP
+3. CronJob
+
+Default_USER : ec2-user 
+PassWord     : PrivateKey 
+KeyPair      : nvir_aws
+
+Nov 01 00:31:16 localhost kernel: Netfront and the Xen platform PCI driver have been compiled for this kernel: unpl
+
+Fri 2019-11-01 00:31:16.806222 UTC [s=d668d730fece42b48db9ac2a705a8f9e;i=1;b=98f892a209174723a2043abab7ac0425;m=202
+    PRIORITY=6
+    _TRANSPORT=driver
+    MESSAGE=Runtime journal is using 6.1M (max allowed 49.5M, trying to leave 74.2M free of 488.8M available <E2>
+    MESSAGE_ID=ec387f577b844b8fa948f33cad9a75e6
+    _PID=96
+    _UID=0
+    _GID=0
+    _COMM=systemd-journal
+    _EXE=/usr/lib/systemd/systemd-journald
+    _CMDLINE=/usr/lib/systemd/systemd-journald
+    _CAP_EFFECTIVE=5402800cf
+    _SYSTEMD_CGROUP=/system.slice/systemd-journald.service
+    _SYSTEMD_UNIT=systemd-journald.service
+    _SYSTEMD_SLICE=system.slice
+    _BOOT_ID=98f892a209174723a2043abab7ac0425
+    _MACHINE_ID=d50276582ad446aba89d80c2dc53c994
+    _HOSTNAME=localhost
+
+[root@ip-172-31-32-5 ~]# ls -lrt /run/log/
+total 0
+drwxr-sr-x. 4 root systemd-journal 80 Nov  1 00:31 journal
+[root@ip-172-31-32-5 ~]# ls -lrt /run/log/journal/
+total 0
+drwxr-x---. 2 root root            60 Nov  1 00:31 d50276582ad446aba89d80c2dc53c994
+drwxr-s---+ 2 root systemd-journal 60 Nov  1 00:31 8b0baec6324a4b078de4e16044d6601d
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# mkdir -p /var/log/journal
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# ls -ld /var/log/journal/
+drwxr-xr-x. 2 root root 6 Nov  1 00:54 /var/log/journal/
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# chmod 2755 /var/log/journal/
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# ls -ld /var/log/journal/
+drwxr-sr-x. 2 root root 6 Nov  1 00:54 /var/log/journal/
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# chown root:systemd-journal /var/log/journal/
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# ls -ld /var/log/journal/
+drwxr-sr-x. 2 root systemd-journal 6 Nov  1 00:54 /var/log/journal/
+[root@ip-172-31-32-5 ~]# ls -lrt /var/log/journal/
+total 0
+
+
+[root@ip-172-31-32-5 ~]# systemctl status crond.service 
+● crond.service - Command Scheduler
+   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2019-11-01 06:28:34 IST; 14min ago
+ Main PID: 1078 (crond)
+   CGroup: /system.slice/crond.service
+           └─1078 /usr/sbin/crond -n
+
+Nov 01 06:28:34 ip-172-31-32-5.ec2.internal systemd[1]: Started Command Scheduler.
+Nov 01 06:28:34 ip-172-31-32-5.ec2.internal systemd[1]: Starting Command Scheduler...
+Nov 01 06:28:34 ip-172-31-32-5.ec2.internal crond[1078]: (CRON) INFO (RANDOM_DELAY will be scaled with factor...d.)
+Nov 01 06:28:35 ip-172-31-32-5.ec2.internal crond[1078]: (CRON) INFO (running with inotify support)
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# systemctl status chronyd
+● chronyd.service - NTP client/server
+   Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2019-11-01 06:37:55 IST; 5min ago
+     Docs: man:chronyd(8)
+           man:chrony.conf(5)
+  Process: 1272 ExecStartPost=/usr/libexec/chrony-helper update-daemon (code=exited, status=0/SUCCESS)
+  Process: 1268 ExecStart=/usr/sbin/chronyd $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 1270 (chronyd)
+   CGroup: /system.slice/chronyd.service
+           └─1270 /usr/sbin/chronyd
+
+Nov 01 06:37:55 ip-172-31-32-5.ec2.internal systemd[1]: Starting NTP client/server...
+Nov 01 06:37:55 ip-172-31-32-5.ec2.internal chronyd[1270]: chronyd version 3.2 starting (+CMDMON +NTP +REFCLO...UG)
+Nov 01 06:37:55 ip-172-31-32-5.ec2.internal chronyd[1270]: Frequency -12.370 +/- 1.005 ppm read from /var/lib...ift
+Nov 01 06:37:55 ip-172-31-32-5.ec2.internal systemd[1]: Started NTP client/server.
+Nov 01 06:38:00 ip-172-31-32-5.ec2.internal chronyd[1270]: Selected source 208.69.120.241
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@ip-172-31-32-5 ~]# 
+
+
+NTP :
+
+NETWORK TIME PROTOCOL :
+
+JENKINS
+SONARQUBE
+JFROG
+ANSIBLE
+TOMCAT
+NAGIOS
+
+
+[root@ip-172-31-32-5 ~]# crontab -l
+no crontab for root
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# crontab -u root -l
+no crontab for root
+[root@ip-172-31-32-5 ~]# crontab -u ec2-user -l
+no crontab for ec2-user
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# crontab -e
+no crontab for root - using an empty one
+crontab: installing new crontab
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# crontab -l
+# I am configuring my first CronJob
+* * * * * echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log
+
+[root@ip-172-31-32-5 ~]# crontab -u root -l
+# I am configuring my first CronJob
+* * * * * echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log
+
+[root@ip-172-31-32-5 ~]# ls -lrt /tmp/info.log 
+-rw-r--r--. 1 root root 47 Nov  1 06:51 /tmp/info.log
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# journalctl | grep "/tmp/info.log"
+Nov 01 06:51:01 ip-172-31-32-5.ec2.internal CROND[8740]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# grep "/tmp/info.log" /var/log/messages 
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# cat /tmp/info.log
+Welcome to Cloud DevOps Architect World By CKK
+Welcome to Cloud DevOps Architect World By CKK
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# journalctl | grep "/tmp/info.log"
+Nov 01 06:51:01 ip-172-31-32-5.ec2.internal CROND[8740]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+Nov 01 06:52:01 ip-172-31-32-5.ec2.internal CROND[8750]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# # 1. * : Minutes (0-59)
+[root@ip-172-31-32-5 ~]# # 2. * : Hour (0-23)
+[root@ip-172-31-32-5 ~]# # 3. * : Date of the Month (1-31)
+[root@ip-172-31-32-5 ~]# # 4. * : Month of the Year (1-12)
+[root@ip-172-31-32-5 ~]# # 5. * : Day of the Week (0,1,2,3,4,5,6) (0-6) 
+[root@ip-172-31-32-5 ~]# 
+[root@ip-172-31-32-5 ~]# journalctl | grep "/tmp/info.log"
+Nov 01 06:51:01 ip-172-31-32-5.ec2.internal CROND[8740]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+Nov 01 06:52:01 ip-172-31-32-5.ec2.internal CROND[8750]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+Nov 01 06:53:01 ip-172-31-32-5.ec2.internal CROND[8757]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+Nov 01 06:54:01 ip-172-31-32-5.ec2.internal CROND[8761]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+Nov 01 06:55:01 ip-172-31-32-5.ec2.internal CROND[8765]: (root) CMD (echo "Welcome to Cloud DevOps Architect World By CKK" >> /tmp/info.log)
+[root@ip-172-31-32-5 ~]# cat /tmp/info.log
+Welcome to Cloud DevOps Architect World By CKK
+Welcome to Cloud DevOps Architect World By CKK
+Welcome to Cloud DevOps Architect World By CKK
+Welcome to Cloud DevOps Architect World By CKK
+Welcome to Cloud DevOps Architect World By CKK
+[root@ip-172-31-32-5 ~]# 
+
+
+
