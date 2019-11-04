@@ -3,3 +3,24 @@ Agenda :
 1. WebServer - httpd 
 2. Advanced Linux Commands 
 3. Ports 
+
+
+Code, Build, Deploy :
+
+Operating System : Linux AmazonLinux 
+
+1. Utility Softwares : (Package Management)
+vim 
+curl
+wget
+unzip 
+git
+elinks
+
+yum install vim curl wget unzip git elinks -y 
+
+2. WebServer Apache httpd : (Controlling Services & Daemons, Analyzing logs)
+
+yum install http* -y 
+
+3. validate the installation 
