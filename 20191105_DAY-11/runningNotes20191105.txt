@@ -1,0 +1,6 @@
+Agenda :
+
+1. Advanced Linux Commands 
+2. Ports
+3. Backup and Recovery
+
