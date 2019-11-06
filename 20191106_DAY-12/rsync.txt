@@ -1,0 +1,104 @@
+rsync - a fast, versatile, remote (and local) file-copying tool.
+
+DESCRIPTION:
+Rsync is a fast and extraordinarily versatile file copying tool.  
+It can copy locally, to/from another host over any remote shell, 
+or to/from a remote rsync daemon.
+
+It is famous for its delta-transfer algorithm, which reduces the 
+amount  of  data  sent over  the  network  
+by sending only the differences between the source files and the 
+existing files in the destination.  
+
+Rsync is widely used for backups and mirroring and as an 
+improved copy  command  for everyday use.
+*********************************************************
+Copy/Sync Files and Directory Locally:
+
+# rsync -zvh backup.tar /opt/backups/
+
+Options:
+-v, --verbose       increase verbosity
+-a, --archive       archive mode;
+-r, --recursive     recurse into directories
+-C, --cvs-exclude   auto-ignore files in the same way CVS does
+-h, --human-readable
+-i  --bwlimit=KBPS  limit I/O bandwidth; 
+-z  While transfering the data it will compress.
+
+Copy/Sync a Directory on Local Computer:
+
+# rsync -avzh /root/rpmpkgs /opt/backups/
+
+Copy/Sync Files and Directory or From a Server:
+
+# rsync -avzr rpmpkgs/ root@192.168.234.137:/home/
+Note: Copy a Directory from Local Server to a Remote Server
+
+Copy/Sync a Remote Directory to a Local Machine:
+
+# rsync -avzh root@192.168.234.137:/home/k/rpmpkgs /mnt/myrpms
+
+Rsync Over SSH:
+Copy a File from a Remote Server to a Local Server with SSH.
+
+Note: using -ssh- with --e- option and perform data transfer.
+
+# rsync -avzhe ssh root@192.168.234.137:/root/install.log /opt/
+
+Copy a File from a Local Server to a Remote Server with SSH:
+
+# rsync -avzhe ssh backup.tar root@192.168.234.137:/backups/
+
+Show Progress While Transferring Data with rsync:
+Note: Using --progress- option for it.
+It displays the files and the time remaining to complete the 
+transfer.
+# rsync -avzhe ssh --progress /home/rpmpkgs root@192.168.234.137:/root/rpmpkgs
+
+Use of -include and -exclude Options:
+# rsync -avze ssh --include 'R*' --exclude '*' root@192.168.234.137:/var/log /root/rpm
+
+Use of -delete Option:
+Note: If a file or directory not exist at the source, 
+but already exists at the destination, 
+you might want to delete that existing file/directory at 
+the target while syncing.
+
+We can use --delete- option to delete files that are not there in source directory.
+# rsync -avz --delete root@192.168.234.137:/var/lib/rpm/ .
+
+
+Set the Max Size of Files to be Transferred:
+
+# rsync -avzhe ssh --max-size='200k' /var/log/ 
+root@192.168.234.137:/root/rpm
+
+Note:
+You can specify the Max file size to be transferred or sync.
+You can do it with --max-size- option.
+
+Automatically Delete source Files after successful Transfer:
+# rsync --remove-source-files -zvh backup.tar /opt/backups/
+Note: This automatic deletion can be done using 
+--remove-source-files- option.
+
+Do a Dry Run with rsync:
+This option will not make any changes only do a dry run of 
+the command and shows the output of the command, 
+if the output shows exactly same you want to do then you can 
+remove --dry-run- option from your command and run on the 
+terminal.
+# rsync --dry-run --remove-source-files -zvh backup.tar 
+/opt/backups/
+
+
+Set Bandwidth Limit and Transfer File:
+--bwlimit- option. This options helps us to limit I/O bandwidth.
+# rsync --bwlimit=100 -avzhe ssh  /var/lib/rpm/  
+root@192.168.234.137:/root/tmprpm/
+
+By default rsync syncs changed blocks and bytes only, 
+if you want explicitly want to sync whole file then you use 
+--W- option with it.
+# rsync -zvhW backup.tar /tmp/backups/backup.tar

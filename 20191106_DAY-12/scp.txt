@@ -1,0 +1,70 @@
+scp - secure copy (remote file copy program):
+*********************************************
+
+DESCRIPTION:
+scp copies files between hosts on a network.  
+It uses ssh for data transfer, 
+and uses the same authentication and provides the same 
+security as ssh.
+----------------------------------------------------------------------
+Syntax:
+scp <option> <source_file_name> <username@dest_host:dest_folder>
+
+----------------------------------------------------------------------
+# scp m.sh root@192.168.234.148:/mnt/
+Output: m.sh      100%   70     0.1KB/s   00:00
+----------------------------------------------------------------------
+Transfer multiple files:
+# scp w_c.sh w_a.sh root@192.168.234.148:/opt/
+----------------------------------------------------------------------
+# scp -pv otrs-3.0.7.tar.gz root@192.168.234.148:/mnt/
+Output: otrs-3.0.7.tar.gz       100%   20MB  19.5MB/s   00:01
+----------------------------------------------------------------------
+# scp -p -v -C sshpass-1.05-1.el6.i686.rpm root@192.168.234.148:/mnt/
+sshpass-1.05-1.el6.i686.rpm     100%   19KB  18.6KB/s   00:00
+
+Speed up the transfer with compression
+
+Note: 
+-C      Compression enable.
+-p      Preserves modification times, 
+access times, and modes from the original file.
+-v      Verbose mode.
+
+Example:
+[root@server0 ~]# scp -Cpv hello.py root@192.168.234.210:/mnt/
+
+----------------------------------------------------------------------
+
+Send using a specific port to use with SCP:
+# scp -P 22 while_expr_1.sh root@192.168.234.148:/mnt
+
+Note: Make sure that it use capital �P� not �p�, 
+since �p� is already used for preserved times and modes.
+----------------------------------------------------------------------
+Copy files inside directory recursively:
+# scp -r project-1/ sshpass-1.05-1.el6.i686.rpm root@192.168.234.148:/mnt/
+or
+# scp -v -r 50cent/ root@192.168.234.148:/media/
+
+----------------------------------------------------------------------
+Disable progress meter and warning / diagnostic message:
+
+# scp -q sshpass.rpm root@192.168.234.148:/mnt/
+
+----------------------------------------------------------------------
+
+To send the files with encrypted using "-c" option.
+# scp -c 3des atlassian.bin root@192.168.234.148:/root/
+
+Note:
+By default SCP using �AES-128� to encrypt files.
+-c cipher : Selects the cipher to use for encrypting the data 
+transfer.
+----------------------------------------------------------------------
+
+Limiting bandwidth using �-l� option:
+
+# scp -vrC -l 512 function.sh root@192.168.234.148:/media
+----------------------------------------------------------------------
+

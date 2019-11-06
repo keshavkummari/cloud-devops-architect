@@ -1,0 +1,157 @@
+To zip the files:
+*****************
+
+# gzip file1.txt
+
+# ls -l file*
+file1.txt.gz
+
+Unzip the files:
+****************
+
+# gunzip file1.txt.gz
+
+# ls file1.txt
+file1.txt
+
+To read the zip files: (zcat, zmore & zgrep)
+**********************
+
+# zcat file3.txt.gz
+Redhat
+Ubuntu
+Linux
+Centos
+
+**************************************
+
+The Linux “tar” stands for tape archive, which is used by large number of Linux/Unix system administrators to deal with tape drives backup. 
+
+The tar command used to rip a collection of files and directories into highly compressed archive file commonly called tarball or tar, gzip and bzip in Linux.
+
+The tar is most widely used command to create compressed archive files and 
+that can be moved easily from one disk to anther disk or machine to machine.
+
+tar command examples including how to create archive files using (tar, tar.gz and tar.bz2) compression, how to extract archive file, extract a single file, view content of file, verify a file, add files or directories to archive file, estimate the size of tar archive file, etc.
+
+
+
+1. Create tar Archive File
+
+# tar -cvf test.tar test/
+# tar cvf test.tar test/
+
+Options:
+c – Creates a new .tar archive file.
+v – Verbosely show the .tar file progress.
+f – File name type of the archive file.
+
+Tar Usage and Options:
+
+c – create a archive file.
+x – extract a archive file.
+v – show the progress of archive file.
+f – filename of archive file.
+t – viewing content of archive file.
+j – filter archive through bzip2.
+z – filter archive through gzip.
+r – append or update files or directories to existing archive file.
+W – Verify a archive file.
+wildcards – Specify patters in unix tar command.
+
+2. Create tar.gz Archive File
+option: z
+(Note : tar.gz and tgz both are similar).
+# tar cvzf test-02-03-16.tar.gz /home/test/
+OR
+# tar cvzf test.tgz test/
+
+
+3. Create tar.bz2 Archive File
+The bz2 feature compress and create archive file less than the size of the gzip. 
+The bz2 compression takes more time to compress and decompress files as compared to gzip which takes less time. 
+To create highly compressed tar file we use option as j.
+Let's create a test.tar.bz2 file for a directory /home/perl. 
+ (Note: tar.bz2 and tbz is similar as tb2).
+ 
+# tar cvfj test.tar.bz2 /home/perl
+OR
+# tar cvfj test.tar.tbz /home/perl
+OR 
+# tar cvfj test.tar.tb2 /home/perl
+
+4. Untar tar Archive File
+Option :  x (extract)
+If you want untar in a different directory then use option as -C (specified directory).
+
+## Untar files in Current Directory ##
+# tar -xvf test-14-09-12.tar
+
+## Untar files in specified Directory ##
+# tar -xvf test-14-09-12.tar -C /opt/
+
+5. Uncompress tar.gz Archive File
+# tar -xvf test-14-09-12.tar.gz
+
+6. Uncompress tar.bz2 Archive File
+# tar -xvf test-14-09-12.tar.bz2
+
+7. List Content of tar Archive File
+option : t (list content)
+# tar -tvf test.tar
+
+8. List Content tar.gz Archive File
+# tar -tvf test.tar.gz
+
+9. List Content tar.bz2 Archive File
+# tar -tvf test.tar.bz2
+
+10. Untar Single file from tar File
+1. tar.gz File or tar.gz or  tar.bz2
+# tar -xvf shell_script.tar shell_1.sh
+OR
+# tar --extract --file=shell_script.tar shell_1.sh
+
+13. Untar Multiple files from tar, tar.gz and tar.bz2 File
+
+To extract or untar multiple files from the tar, tar.gz and tar.bz2 archive file. 
+
+For example the below command will extract “file 1” “file 2” from the archive files.
+
+# tar -xvf test-14-09-12.tar "file 1" "file 2" 
+
+# tar -zxvf test-14-09-12.tar.gz "file 1" "file 2" 
+
+# tar -jxvf test.tar.bz2 "file 1" "file 2"
+
+14. Extract Group of Files using Wildcard
+Extract a group of all files whose pattern begins with .php from a tar, tar.gz and tar.bz2 archive file.
+
+# tar -xvf test.tar --wildcards '*.php'
+
+# tar -zxvf test.tar.gz --wildcards '*.php'
+
+# tar -jxvf test.tar.bz2 --wildcards '*.php'
+
+15. Add Files or Directories to tar Archive File
+Option : r (append)
+
+# tar -rvf test-02-03-16.tar xyz.txt
+
+# tar -rvf test-02-03-16.tar php
+
+16. Add Files or Directories to tar.gz and tar.bz2 files
+# tar -rvf test-02-03-16.tar.gz xyz.txt
+
+# tar -rvf test-02-03-16.tar.bz2 xyz.txt
+
+17. How To Verify tar, tar.gz and tar.bz2 Archive File
+Option : W (verify)
+ (Note : You cannot do verification on a compressed ( *.tar.gz, *.tar.bz2 ) archive file)
+ # tar tvfW test-02-03-16.tar
+ 
+18. Check the Size of the tar, tar.gz and tar.bz2 Archive File
+By default it will display the size of archvie file in Kilobytes (KB).
+# tar -czf - tecmint-14-09-12.tar | wc -c
+
+
